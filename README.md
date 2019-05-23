@@ -8,36 +8,36 @@
 
 基于 Promise 对象实现更简单的 request 使用方式，支持请求、响应拦截和全局配置。为项目迁移到别的框架实现解耦。
 
-## 1、安装
+## 安装
 
-### 1.1、npm
+### npm
 ``` bash
 $ npm i request-core
 ```
 
-### 1.2、yarn
+### yarn
 ``` bash
 $ yarn add request-core
 ```
 
-### 1.3、cnpm
+### cnpm
 ``` bash
 $ cnpm i request-core
 ```
 
-## 2、使用
+## 使用
 
-### 2.1、Taro引用方式
+### Taro引用方式
 ```javascript
 import http from 'request-core/src/taro'
 ```
 
-### 2.2、uniApp引用方式
+### uniApp引用方式
 ```javascript
 import http from 'request-core/src/uni'
 ```
 
-### 2.3、全局配置
+### 全局配置
 
 > 可用的全局配置 `baseURL`、`url`、`data`、`header`、`method`、`dataType`。
 
@@ -51,7 +51,7 @@ http.config = {
 }
 ```
 
-### 2.4、请求拦截
+### 请求拦截
 ```javascript
 http.interceptors.request.use(config=>{
 	console.log('请求拦截',config)
@@ -71,7 +71,7 @@ http.interceptors.response.use((res)=>{
 
 > 局部配置优先级高于全局配置，全局配置优先级高于默认配置。
 
-### 2.5、使用（1）
+### 使用方式1
 ```javascript
 http({
 	url:'users/test3',
@@ -86,7 +86,7 @@ http({
 })
 ```
 
-### 2.6、使用（2）
+### 使用方式2
 ```javascript
 http.get('users/test3',{
     name:'111',
