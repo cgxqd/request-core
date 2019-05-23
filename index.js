@@ -46,12 +46,15 @@ export const adapter = (http) => {
 		})()
 
 		options = onresult(requestInterceptor.handler, options)
+		if(!options) {
+			onresult(requestInterceptor.onerror, {errMsg:'请求截止'})
+			return Promise.reject({errMsg:'请求截止'})
+		}
 
 		return new Promise((resolve, reject) => {
 
 			http(options).then(res => {
-				let _res = { ...res
-				}
+				
 				let _request = { ...res,
 					request: options
 				}
