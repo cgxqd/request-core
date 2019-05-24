@@ -111,8 +111,10 @@ http({
 ```
 
 ### 调用方式2
+
+可用的请求方式 有 `OPTIONS`, `GET`, `HEAD`, `POST`, `PUT`, `DELETE`, `TRACE`, `CONNECT`
+
 ```javascript
-//目前只有封装了get、post
 http.get('users/test3',{
     name:'111',
     test:'222',

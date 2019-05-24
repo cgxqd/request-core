@@ -1,5 +1,4 @@
 module.exports = (http) => {
-
 	let interceptors = null;
 
 	//默认配置
@@ -93,16 +92,19 @@ module.exports = (http) => {
 		}
 	}
 
-	$request.get = (url, data, options = {}) => $request({ ...options,
-		url,
-		data,
-		method: 'GET'
-	})
-	$request.post = (url, data, options = {}) => $request({ ...options,
-		url,
-		data,
-		method: 'POST'
-	})
+	return new Proxy($request, {
+		get(obj, name) {
+			let _methods = ['OPTIONS', 'GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'TRACE', 'CONNECT'];
+			let _method = name.toLocaleUpperCase()
+			if (_methods.includes(_method)) return (url, data, options = {}) => {
+				return $request({ ...options,
+					url,
+					data,
+					method: _method
+				})
+			}
+			else return obj[name]
 
-	return $request
+		}
+	})
 };
