@@ -1,8 +1,6 @@
-import {adapter} from '../index.js'
+const adapter = require('../index')
 
 const http = (options) => {
-	
-	console.log('uni js options',options)
 	
     return new Promise((succ, fail) => {
 		uni.request({
@@ -17,4 +15,4 @@ const http = (options) => {
 	});
 }
 
-export default adapter(http)
+module.exports =  adapter(http)

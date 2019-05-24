@@ -3,26 +3,23 @@
 
 多端网络请求
 
->  目的：实现各多端框架（taro,uniApp,mpvue等）统一请求代码。
+>  目的：实现各多端框架（`taro`、`uniApp`、`mpvue` 等）统一请求代码。
 
 
-基于 Promise 对象实现更简单的 request 使用方式，支持请求、响应拦截和全局配置。为项目迁移到别的框架实现解耦。
+基于 Promise 对象实现更简单的 request 使用方式，支持`请求拦截`、`响应拦截`和`全局配置`，为项目迁移到别的框架实现解耦。欢迎为本项目提issus。
 
 ## 安装
 
-### npm
+### 依赖包下载
 ``` bash
+# 使用 npm 安装
 $ npm i request-core
-```
 
-### yarn
-``` bash
-$ yarn add request-core
-```
-
-### cnpm
-``` bash
+# OR 使用 cnpm 安装
 $ cnpm i request-core
+
+# OR 使用 yarn 安装
+$ yarn add request-core
 ```
 
 ## 使用
@@ -39,7 +36,7 @@ import http from 'request-core/src/uni'
 
 ### 全局配置
 
-> 可用的全局配置 `baseURL`、`url`、`data`、`header`、`method`、`dataType`。
+> 可用的全局配置 `baseURL`、`url`、`data`、`header`、`method`、`dataType`和框架自带的其他配置，比如Taro h5 端的配置。
 
 ```javascript
 http.config = {

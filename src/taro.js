@@ -1,20 +1,24 @@
-import {adapter} from '../index.js'
+const adapter = require('../index')
+
+let Taro = null
+if (process.env.TARO_ENV === 'weapp') {
+	Taro = require('@tarojs/taro-weapp')
+} else if (process.env.TARO_ENV === 'h5') {
+	Taro = require('@tarojs/taro-h5')
+}
 
 const http = (options) => {
-	console.log('taro js options',options)
-	return new Promise((succ,fail) => {
+	return new Promise((succ, fail) => {
 		Taro.request({
 			...options,
-			success(data){
+			success(data) {
 				succ(data);
 			},
-			fail(err){
+			fail(err) {
 				fail(err);
 			}
 		})
 	})
 }
 
-
-
-export default adapter(http)
+module.exports = adapter(http)
