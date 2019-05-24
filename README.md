@@ -24,14 +24,41 @@ $ yarn add request-core
 
 ## 使用
 
-### Taro引用方式
+### Taro
 ```javascript
+// app.js
 import http from 'request-core/src/taro'
+Taro.$http = http
+
+//xxx.js 
+//Taro.$http(options={})	或	Taro.$http.get(url,data,options={})
 ```
 
-### uniApp引用方式
+### uniApp
 ```javascript
+//main
 import http from 'request-core/src/uni'
+Vue.prototype.$http = $http;
+
+//xxx.vue 
+//this.$http(options={})	或	this.$http.get(url,data,options={})
+```
+
+### 微信小程序weapp(单一端)
+首先，你需要将 node_modules 目录下的 request-core 拷贝到 项目根目录 或 需要的目录。
+```javascript
+//app.js
+
+import http from './request-core/src/weapp'
+wx.$http = http;
+
+App({
+	....
+})
+
+//xxx.js 
+// wx.$http(options={})		或		wx.$http.get(url,data,options={})
+
 ```
 
 ### 全局配置
@@ -68,7 +95,7 @@ http.interceptors.response.use((res)=>{
 
 > 局部配置优先级高于全局配置，全局配置优先级高于默认配置。
 
-### 使用方式1
+### 调用方式1
 ```javascript
 http({
 	url:'users/test3',
@@ -83,8 +110,9 @@ http({
 })
 ```
 
-### 使用方式2
+### 调用方式2
 ```javascript
+//目前只有封装了get、post
 http.get('users/test3',{
     name:'111',
     test:'222',
