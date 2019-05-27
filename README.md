@@ -1,7 +1,7 @@
 # [request-core](https://github.com/cgxqd/request-core)
 
 
-多端网络请求
+`Taro`、`uni`、`mpVue` 等多端网络请求
 
 >  目的：实现各多端框架（`taro`、`uniApp`、`mpvue` 等）统一请求代码。
 
@@ -45,7 +45,7 @@ Vue.prototype.$http = $http;
 ```
 
 ### 微信小程序weapp(单一端)
-首先，你需要将 node_modules 目录下的 request-core 拷贝到 项目根目录 或 需要的目录。
+> 首先，你需要将 node_modules 目录下的 request-core 拷贝到 项目根目录 或 需要的目录。
 ```javascript
 //app.js
 
@@ -112,7 +112,7 @@ http({
 
 ### 调用方式2
 
-可用的请求方式 有 `OPTIONS`, `GET`, `HEAD`, `POST`, `PUT`, `DELETE`, `TRACE`, `CONNECT`
+> 可用的请求方式 有 `OPTIONS`, `GET`, `HEAD`, `POST`, `PUT`, `DELETE`, `TRACE`, `CONNECT`
 
 ```javascript
 http.get('users/test3',{

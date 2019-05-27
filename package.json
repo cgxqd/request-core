@@ -1,6 +1,6 @@
 {
   "name": "request-core",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "request-core 多端网络请求",
   "main": "index.js",
   "scripts": {

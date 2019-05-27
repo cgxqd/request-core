@@ -58,7 +58,8 @@ module.exports = (http) => {
 
 			http(options).then(res => {
 
-				let _request = { ...res,
+				let _request = {
+					...res,
 					request: options
 				}
 				if (res.statusCode === 200) {
@@ -94,10 +95,12 @@ module.exports = (http) => {
 
 	return new Proxy($request, {
 		get(obj, name) {
+			
 			let _methods = ['OPTIONS', 'GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'TRACE', 'CONNECT'];
 			let _method = name.toLocaleUpperCase()
 			if (_methods.includes(_method)) return (url, data, options = {}) => {
-				return $request({ ...options,
+				return $request({
+					...options,
 					url,
 					data,
 					method: _method
