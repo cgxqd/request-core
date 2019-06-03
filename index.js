@@ -44,13 +44,17 @@ module.exports = (http) => {
 			}
 		})()
 
+		let primevalOptions = JSON.parse(JSON.stringify(options))
 		options = onresult(requestInterceptor.handler, options)
-		if (!options) {
+		if (typeof(options) === 'boolean' && !options) {
+			let errMsg = `请求截止`
 			onresult(requestInterceptor.onerror, {
-				errMsg: '请求截止'
+				...primevalOptions,
+				statusCode: -1,
+				errMsg
 			})
 			return Promise.reject({
-				errMsg: '请求截止'
+				errMsg
 			})
 		}
 
@@ -63,10 +67,10 @@ module.exports = (http) => {
 					request: options
 				}
 				if (res.statusCode === 200) {
-					_request = onresult(responseInterceptor.handler, _request)
+					onresult(responseInterceptor.handler, _request)
 					resolve(_request)
 				} else {
-					_request = onresult(responseInterceptor.onerror, _request)
+					onresult(responseInterceptor.onerror, _request)
 					reject(_request)
 				}
 			}).catch(err => {
@@ -95,7 +99,7 @@ module.exports = (http) => {
 
 	return new Proxy($request, {
 		get(obj, name) {
-			
+
 			let _methods = ['OPTIONS', 'GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'TRACE', 'CONNECT'];
 			let _method = name.toLocaleUpperCase()
 			if (_methods.includes(_method)) return (url, data, options = {}) => {
