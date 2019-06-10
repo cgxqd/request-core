@@ -46,7 +46,7 @@ module.exports = (http) => {
 
 		let primevalOptions = JSON.parse(JSON.stringify(options))
 		options = onresult(requestInterceptor.handler, options)
-		if (typeof(options) === 'boolean' && !options) {
+		if (typeof (options) === 'boolean' && !options) {
 			let errMsg = `请求截止`
 			onresult(requestInterceptor.onerror, {
 				...primevalOptions,
@@ -66,12 +66,13 @@ module.exports = (http) => {
 					...res,
 					request: options
 				}
+				let responseData = null;
 				if (res.statusCode === 200) {
-					onresult(responseInterceptor.handler, _request)
-					resolve(_request)
+					responseData = onresult(responseInterceptor.handler, _request)
+					resolve(responseData)
 				} else {
-					onresult(responseInterceptor.onerror, _request)
-					reject(_request)
+					responseData = onresult(responseInterceptor.onerror, _request)
+					reject(responseData)
 				}
 			}).catch(err => {
 				onresult(requestInterceptor.onerror, err)
