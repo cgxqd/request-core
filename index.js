@@ -23,18 +23,19 @@ module.exports = (http) => {
 	let $request = (options) => {
 
 		// 合并默认配置和全局配置
+		$request.config.header = Object.assign(_defaultConfig.header, $request.config.header || {})
 		Object.assign(_defaultConfig, $request.config)
 
 		let requestInterceptor = interceptors.request;
 		let responseInterceptor = interceptors.response;
 
 		// 合并请求参数
+		options.header = Object.assign(_defaultConfig.header, options.header || {})
 		options = Object.assign(_defaultConfig, options)
 
 		options.baseURL = options.baseURL || $request.config.baseURL
 		options.dataType = options.dataType || $request.config.dataType
 		options.data = options.data || {}
-		options.header = options.header || $request.config.header
 		options.method = options.method || $request.config.method
 		options.url = posUrl(options.url) ? options.url : (() => {
 			if (options.baseURL && posUrl(options.baseURL)) {
@@ -59,9 +60,7 @@ module.exports = (http) => {
 		}
 
 		return new Promise((resolve, reject) => {
-
 			http(options).then(res => {
-
 				let _request = {
 					...res,
 					request: options
@@ -81,7 +80,7 @@ module.exports = (http) => {
 		})
 	}
 
-	var onresult = (handler, data) => handler && handler(data)
+	var onresult = (handler, data) => typeof(handler) ==='function' && handler(data)
 
 	interceptors = $request.interceptors = {
 		request: {
@@ -100,7 +99,6 @@ module.exports = (http) => {
 
 	return new Proxy($request, {
 		get(obj, name) {
-
 			let _methods = ['OPTIONS', 'GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'TRACE', 'CONNECT'];
 			let _method = name.toLocaleUpperCase()
 			if (_methods.includes(_method)) return (url, data, options = {}) => {
@@ -112,7 +110,6 @@ module.exports = (http) => {
 				})
 			}
 			else return obj[name]
-
 		}
 	})
 };
