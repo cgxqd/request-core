@@ -80,7 +80,9 @@ module.exports = (http) => {
 		})
 	}
 
-	var onresult = (handler, data) => typeof(handler) ==='function' && handler(data)
+	var onresult = (handler, data) => typeof (handler) === 'function' ? handler(data) : data
+
+	$request.config = {};
 
 	interceptors = $request.interceptors = {
 		request: {

@@ -80,7 +80,8 @@ http.config = {
 http.interceptors.request.use(config=>{
 	console.log('请求拦截',config)
 	config.data.name = '测试'
-	return config
+	return config  /* return false 直接截止该请求 */
+	
 },err=>{
 	console.log('拦截请求报错',err)
 })
