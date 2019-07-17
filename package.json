@@ -1,6 +1,6 @@
 {
   "name": "request-core",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Taro、uni、mpVue 等多端网络请求",
   "main": "index.js",
   "scripts": {

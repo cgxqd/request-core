@@ -74,8 +74,12 @@ module.exports = (http) => {
 					reject(responseData)
 				}
 			}).catch(err => {
-				onresult(requestInterceptor.onerror, err)
-				reject(err)
+				let rejectParams = {
+					...err,
+					request:options
+				}
+				onresult(requestInterceptor.onerror, rejectParams)
+				reject(rejectParams)
 			})
 		})
 	}
