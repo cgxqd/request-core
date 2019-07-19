@@ -2,9 +2,10 @@ const adapter = require('../index')
 
 const http = (options = {}) => {
     options.dataType = options.dataType || 'json'
-    let { header: headers, ...other } = options;
+    let { header: headers, data: body, ...other } = options;
     return fetch(options.url, {
         ...other,
+        body,
         headers,
     }).then(async response => {
         var { bodyUsed, ok, redirected, status: statusCode, statusText, type, url, ...otherObj } = response2 = response.clone();
