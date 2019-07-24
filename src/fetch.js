@@ -1,9 +1,16 @@
 const adapter = require('../index')
 
+const isObj = val => Object.prototype.toString.call(val).includes('Object');
+
+const URLSearchParams = param => Object.keys(param).map(key => `${key}=${encodeURIComponent(JSON.stringify(param[key]))}`).join('&')
+
 const http = (options = {}) => {
-    options.dataType = options.dataType || 'json'
-    let { header: headers, data: body, ...other } = options;
-    return fetch(options.url, {
+    let { header: headers, data: body, url, ...other } = options;
+    if (options.method.toUpperCase() === 'GET') {
+        url = `${url}${isObj(body) ? '?' + URLSearchParams(body) : null}`
+        body = null;
+    }
+    return fetch(url, {
         ...other,
         body,
         headers,
@@ -26,7 +33,7 @@ const http = (options = {}) => {
                 }
             }
         } catch (err) {
-            return Promise.reject({ statusCode, bodyUsed, ok, redirected, statusText, type, url })
+            return Promise.reject({ errMsg: err.message, statusCode, bodyUsed, ok, redirected, statusText, type, url })
         }
         return Promise.resolve({ data, statusCode, bodyUsed, ok, redirected, statusText, type, url })
     })
