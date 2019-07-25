@@ -32,11 +32,7 @@ module.exports = (http) => {
 		// 合并请求参数
 		options.header = Object.assign(_defaultConfig.header, options.header || {})
 		options = Object.assign(_defaultConfig, options)
-
-		options.baseURL = options.baseURL || $request.config.baseURL
-		options.dataType = options.dataType || $request.config.dataType
-		options.data = options.data || {}
-		options.method = options.method || $request.config.method
+		
 		options.url = posUrl(options.url) ? options.url : (() => {
 			if (options.baseURL && posUrl(options.baseURL)) {
 				return options.baseURL.replace(/\/?$/, '/') + options.url.replace(/^\/?/, '')
@@ -73,9 +69,10 @@ module.exports = (http) => {
 					responseData = onresult(responseInterceptor.onerror, _request)
 					reject(responseData)
 				}
-			}).catch(err => {
+			}).catch(({status:statusCode,...otherErr}) => {
 				let rejectParams = {
-					...err,
+					...otherErr,
+          			statusCode,
 					request:options
 				}
 				onresult(requestInterceptor.onerror, rejectParams)
